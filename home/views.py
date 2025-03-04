@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Index
+from .models import Index, Team
 
 # Create your views here.
 def home(request):
@@ -8,10 +8,15 @@ def home(request):
 def index(request):
     index_items = Index.objects.filter(name__icontains='VAMS').latest('updated_at')
     about_items = Index.objects.filter(name='about_us').latest('updated_at')
+    about_right_items = Index.objects.filter(name='index-about-right').latest('updated_at')
     about_bullet_items = Index.objects.filter(name='about_us_bullets')
     service_items = Index.objects.filter(name='services').latest('updated_at')
+    index_promonitor_2 = Index.objects.filter(name='index-promonitor-2').latest('updated_at')
+    index_promonitor_3 = Index.objects.filter(name='index-promonitor-3').latest('updated_at')
     promonitor_items = Index.objects.filter(name='index-promonitor').latest('updated_at')
-    promonitor_feature_items = Index.objects.filter(name='promonitor-features') 
+    promonitor_feature_items = Index.objects.filter(name='promonitor-features')
+    team_items_member  =  Team.objects.all()
+    team_items = Index.objects.filter(name="index-team").latest('updated_at')
     context = {
         "index": {
             "company_name": index_items.name,
@@ -22,71 +27,64 @@ def index(request):
             "title": about_items.name,
             "description": about_items.description,
             "bullets":[{'description':item.description} for item in about_bullet_items]
-        },"services": {
+        },
+        "about_right": {"description":about_right_items.description},
+        "index_about_2":index_promonitor_2,
+        "index_about_3":index_promonitor_3,
+        "services": {
             "title": service_items.name,
             "description": service_items.description,
         },"promonitor":{
             "title": promonitor_items.name,
             "slogan": promonitor_items.slogan,
             "description": promonitor_items.description,
-        },"promonitor_features":[{'description':item.description} for item in promonitor_feature_items],
+        },"promonitor_features":promonitor_feature_items,
         "call_to_action": {
             "title": "Call To Action",
             "description": "Duis aute irure dolor in reprehenderit...",
             "link": "#"
         },
-        "portfolio": {
-            "title": "Portfolio",
-            "description": "Necessitatibus eius consequatur...",
-            "categories": [
-                {"name": "App", "slug": "app"},
-                {"name": "Card", "slug": "product"},
-                {"name": "Web", "slug": "branding"}
-            ],
-            "items": [
-                {
-                    "title": "App 1",
-                    "description": "Lorem ipsum dolor sit",
-                    "image": "assets/img/portfolio/portfolio-portrait-1.webp",
-                    "category": {"slug": "app"},
-                    "details_link": "portfolio-details.html"
-                },
-                # Add more items...
-            ]
-        },
+        # "portfolio": {
+        #     "title": "Portfolio",
+        #     "description": "Necessitatibus eius consequatur...",
+        #     "categories": [
+        #         {"name": "App", "slug": "app"},
+        #         {"name": "Card", "slug": "product"},
+        #         {"name": "Web", "slug": "branding"}
+        #     ],
+        #     "items": [
+        #         {
+        #             "title": "App 1",
+        #             "description": "Lorem ipsum dolor sit",
+        #             "image": "assets/img/portfolio/portfolio-portrait-1.webp",
+        #             "category": {"slug": "app"},
+        #             "details_link": "portfolio-details.html"
+        #         },
+        #         # Add more items...
+        #     ]
+        # },
         "team": {
-            "title": "Team",
-            "description": "Necessitatibus eius consequatur...",
-            "members": [
-                {
-                    "name": "Walter White",
-                    "position": "CEO",
-                    "bio": "Explicabo voluptatem...",
-                    "image": "assets/img/person/person-m-7.webp",
-                    "twitter": "#",
-                    "facebook": "#",
-                    "instagram": "#",
-                    "linkedin": "#"
-                },
-                # Add more members...
-            ]
+            "title": team_items.slogan,
+            "description": team_items.description,
+            "members": team_items_member
         },
-        "pricing": {
-            "title": "Pricing",
-            "description": "Necessitatibus eius consequatur...",
-            "plans": [
-                {
-                    "name": "Free Plan",
-                    "price": "0",
-                    "features": [
-                        {"text": "Quam adipiscing vitae proin", "available": True},
-                        {"text": "Pharetra massa ultricies", "available": False}
-                    ],
-                    "link": "#"
-                },
-                # Add more plans...
-            ]
-        },'faqs': [
+        # "pricing": {
+        #     "title": "Pricing",
+        #     "description": "Necessitatibus eius consequatur...",
+        #     "plans": [
+        #         {
+        #             "name": "Free Plan",
+        #             "price": "0",
+        #             "features": [
+        #                 {"text": "Quam adipiscing vitae proin", "available": True},
+        #                 {"text": "Pharetra massa ultricies", "available": False}
+        #             ],
+        #             "link": "#"
+        #         },
+        #         # Add more plans...
+        #     ]
+        # },
+        'faqs': [
             {'question': 'Non consectetur...', 'answer': 'Feugiat pretium...'},
             # Add more FAQ items here...
         ],

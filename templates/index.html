@@ -112,7 +112,7 @@
       </div>
 
       <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-        <p>Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        <p>{{about_right.description}}</p>
         <a href="#" class="read-more"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
       </div>
 
@@ -131,8 +131,8 @@
       <div class="col-lg-7 d-flex flex-column justify-content-center order-2 order-lg-1">
 
         <div class="content px-xl-5" data-aos="fade-up" data-aos-delay="100">
-          <h3><span>Eum ipsam laborum deleniti </span><strong>velit pariatur architecto aut nihil</strong></h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          <h3><span>{{index_about_2.slogan}}</span><strong></strong></h3>
+          <p>{{index_about_2.description}}</p>
         </div>
 
         <div class="faq-container px-xl-5" data-aos="fade-up" data-aos-delay="200">
@@ -161,8 +161,8 @@
       </div>
 
       <div class="col-lg-6 pt-4 pt-lg-0 content">
-        <h3>Voluptatem dignissimos provident quasi corporis voluptas</h3>
-        <p class="fst-italic">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <h3>{{index_about_3.slogan}}</h3>
+        <p class="fst-italic">{{index_about_3.description}}</p>
 
         <div class="skills-content skills-animation">
           <!-- Skills bars remain unchanged -->
@@ -202,37 +202,17 @@
   <div class="container" data-aos="fade-up" data-aos-delay="100">
 
     <div class="row gy-5">
-
+      {% for pf in promonitor_features %}
       <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
         <div class="steps-item">
           <div class="steps-image">
-            <img src="{% static 'assets/img/steps/steps-1.webp' %}" alt="Step 1" class="img-fluid" loading="lazy">
+            <img src="{{ pf.logo.url }}" alt="{{pf.slogan}}" class="img-fluid" loading="lazy">
           </div>
-          <h4>Step 1</h4>
-          <p>Description for Step 1</p>
+          <h5 style="text-align: center;">{{pf.slogan}}</h5>
+          <p style="margin: 0px 10px;">{{pf.description}}</p>
         </div>
       </div>
-
-      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
-        <div class="steps-item">
-          <div class="steps-image">
-            <img src="{% static 'assets/img/steps/steps-2.webp' %}" alt="Step 2" class="img-fluid" loading="lazy">
-          </div>
-          <h4>Step 2</h4>
-          <p>Description for Step 2</p>
-        </div>
-      </div>
-
-      <div class="col-lg-4" data-aos="fade-up" data-aos-delay="400">
-        <div class="steps-item">
-          <div class="steps-image">
-            <img src="{% static 'assets/img/steps/steps-3.webp' %}" alt="Step 3" class="img-fluid" loading="lazy">
-          </div>
-          <h4>Step 3</h4>
-          <p>Description for Step 3</p>
-        </div>
-      </div>
-
+      {% endfor %}
     </div>
 
   </div>
@@ -241,7 +221,7 @@
 
 <!-- Call To Action Section -->
 
-<section id="call-to-action" class="call-to-action section dark-background">
+{% comment %} <section id="call-to-action" class="call-to-action section dark-background">
 
   <img src="{% static 'assets/img/bg/bg-8.webp' %}" alt="">
 
@@ -257,10 +237,10 @@
     </div>
   </div>
 
-</section>
+</section> {% endcomment %}
 
 <!-- Portfolio Section -->
-<section id="portfolio" class="portfolio section">
+{% comment %} <section id="portfolio" class="portfolio section">
   <div class="container section-title" data-aos="fade-up">
     <h2>{{ portfolio.title }}</h2>
     <p>{{ portfolio.description }}</p>
@@ -292,7 +272,7 @@
 
     </div>
   </div>
-</section>
+</section> {% endcomment %}
 
 <!-- Team Section -->
 <section id="team" class="team section">
@@ -306,10 +286,10 @@
       {% for member in team.members %}
         <div class="col-lg-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:"1" }}00">
           <div class="team-member d-flex align-items-start">
-            <div class="pic"><img src="{% static member.image %}" class="img-fluid" alt="{{ member.name }}"></div>
+            <div class="pic"><img src="{{member.profile.url }}" class="img-fluid" alt="{{ member.name }}"></div>
             <div class="member-info">
               <h4>{{ member.name }}</h4>
-              <span>{{ member.position }}</span>
+              <span>{{ member.designation }}</span>
               <p>{{ member.bio }}</p>
               <div class="social">
                 <a href="{{ member.twitter }}"><i class="bi bi-twitter-x"></i></a>
@@ -326,7 +306,7 @@
 </section>
 
 <!-- Pricing Section -->
-<section id="pricing" class="pricing section light-background">
+{% comment %} <section id="pricing" class="pricing section light-background">
   <div class="container section-title" data-aos="fade-up">
     <h2>{{ pricing.title }}</h2>
     <p>{{ pricing.description }}</p>
@@ -353,10 +333,10 @@
       {% endfor %}
     </div>
   </div>
-</section>
+</section> {% endcomment %}
 
 <!-- Faq 2 Section -->
-{% load static %}
+{% comment %} {% load static %} {% endcomment %}
 
 <section id="faq-2" class="faq-2 section light-background">
   <div class="container section-title" data-aos="fade-up">
@@ -414,7 +394,7 @@
   </div>
 </section>
 
-<section id="recent-blog-postst" class="recent-blog-postst section light-background">
+{% comment %} <section id="recent-blog-postst" class="recent-blog-postst section light-background">
   <div class="container section-title" data-aos="fade-up">
     <h2>Recent Blog Posts</h2>
     <p>Necessitatibus eius consequatur...</p>
@@ -448,7 +428,7 @@
       {% endfor %}
     </div>
   </div>
-</section>
+</section> {% endcomment %}
 
 <section id="contact" class="contact section">
 
