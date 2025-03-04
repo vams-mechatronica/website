@@ -341,7 +341,7 @@
 <section id="faq-2" class="faq-2 section light-background">
   <div class="container section-title" data-aos="fade-up">
     <h2>Frequently Asked Questions</h2>
-    <p>Magnam dolores commodi suscipit...</p>
+    {% comment %} <p>Magnam dolores commodi suscipit...</p> {% endcomment %}
   </div>
 
   <div class="container">
@@ -351,9 +351,9 @@
           {% for faq in faqs %}
           <div class="faq-item {% if forloop.first %}faq-active{% endif %}" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:1 }}00">
             <i class="faq-icon bi bi-question-circle"></i>
-            <h3>{{ faq.question }}</h3>
+            <h3>{{ faq.name }}</h3>
             <div class="faq-content">
-              <p>{{ faq.answer }}</p>
+              <p>{{ faq.description }}</p>
             </div>
             <i class="faq-toggle bi bi-chevron-right"></i>
           </div>
@@ -435,7 +435,7 @@
   <!-- Section Title -->
   <div class="container section-title" data-aos="fade-up">
     <h2>Contact</h2>
-    <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+    <p>Leave us a message and we'll get back to you.</p>
   </div><!-- End Section Title -->
 
   <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -449,7 +449,7 @@
             <i class="bi bi-geo-alt flex-shrink-0"></i>
             <div>
               <h3>Address</h3>
-              <p>A108 Adam Street, New York, NY 535022</p>
+              <p>C-82, Focal Point, Ludhiana, IN 141015</p>
             </div>
           </div><!-- End Info Item -->
 
@@ -457,7 +457,7 @@
             <i class="bi bi-telephone flex-shrink-0"></i>
             <div>
               <h3>Call Us</h3>
-              <p>+1 5589 55488 55</p>
+              <p>+91 8948313390</p>
             </div>
           </div><!-- End Info Item -->
 
@@ -465,7 +465,7 @@
             <i class="bi bi-envelope flex-shrink-0"></i>
             <div>
               <h3>Email Us</h3>
-              <p>info@example.com</p>
+              <p>info@vamsmechatronica.in</p>
             </div>
           </div><!-- End Info Item -->
 

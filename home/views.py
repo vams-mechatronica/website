@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Index, Team
+from .models import Index, Team,FAQ
 
 # Create your views here.
 def home(request):
@@ -10,6 +10,7 @@ def index(request):
     about_items = Index.objects.filter(name='about_us').latest('updated_at')
     about_right_items = Index.objects.filter(name='index-about-right').latest('updated_at')
     about_bullet_items = Index.objects.filter(name='about_us_bullets')
+    faq_items = FAQ.objects.all()[:5]
     service_items = Index.objects.filter(name='services').latest('updated_at')
     index_promonitor_2 = Index.objects.filter(name='index-promonitor-2').latest('updated_at')
     index_promonitor_3 = Index.objects.filter(name='index-promonitor-3').latest('updated_at')
@@ -84,10 +85,7 @@ def index(request):
         #         # Add more plans...
         #     ]
         # },
-        'faqs': [
-            {'question': 'Non consectetur...', 'answer': 'Feugiat pretium...'},
-            # Add more FAQ items here...
-        ],
+        'faqs': faq_items,
         'recent_posts': [
             {'title': 'Eum ad dolor et...', 'date': 'December 12', 'author': 'Julia Parker', 'category': 'Politics', 'image_url': '/static/img/blog/blog-post-1.webp', 'url': '#'},
             # Add more posts here...
