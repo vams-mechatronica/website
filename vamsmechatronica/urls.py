@@ -17,10 +17,20 @@ from django.contrib import admin
 from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework.routers import DefaultRouter
+from django.urls import path, include
+from contact.views import ContactUsFormViewSet, SubscribedToNewsletterView
+
+
+router = DefaultRouter()
+router.register(r'contact-us', ContactUsFormViewSet)
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', include('home.urls')),
+    path('api/', include(router.urls)),
+    path('api/subscribe-to-newsletter/',SubscribedToNewsletterView.as_view()),
+    path('admin/', admin.site.urls),
 ]
 
 # if not settings.DEBUG:

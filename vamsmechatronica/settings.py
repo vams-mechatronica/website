@@ -148,4 +148,5 @@ INSTALLED_APPS += [
     'careers',
     'promonitor',
     'help',
+    'rest_framework'
 ]

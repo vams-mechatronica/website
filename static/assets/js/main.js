@@ -6,7 +6,7 @@
 * License: https://bootstrapmade.com/license/
 */
 
-(function() {
+(function () {
   "use strict";
 
   /**
@@ -52,7 +52,7 @@
    * Toggle mobile nav dropdowns
    */
   document.querySelectorAll('.navmenu .toggle-dropdown').forEach(navmenu => {
-    navmenu.addEventListener('click', function(e) {
+    navmenu.addEventListener('click', function (e) {
       e.preventDefault();
       this.parentNode.classList.toggle('active');
       this.parentNode.nextElementSibling.classList.toggle('dropdown-active');
@@ -115,7 +115,7 @@
    * Init swiper sliders
    */
   function initSwiper() {
-    document.querySelectorAll(".init-swiper").forEach(function(swiperElement) {
+    document.querySelectorAll(".init-swiper").forEach(function (swiperElement) {
       let config = JSON.parse(
         swiperElement.querySelector(".swiper-config").innerHTML.trim()
       );
@@ -147,7 +147,7 @@
     new Waypoint({
       element: item,
       offset: '80%',
-      handler: function(direction) {
+      handler: function (direction) {
         let progress = item.querySelectorAll('.progress .progress-bar');
         progress.forEach(el => {
           el.style.width = el.getAttribute('aria-valuenow') + '%';
@@ -159,13 +159,13 @@
   /**
    * Init isotope layout and filters
    */
-  document.querySelectorAll('.isotope-layout').forEach(function(isotopeItem) {
+  document.querySelectorAll('.isotope-layout').forEach(function (isotopeItem) {
     let layout = isotopeItem.getAttribute('data-layout') ?? 'masonry';
     let filter = isotopeItem.getAttribute('data-default-filter') ?? '*';
     let sort = isotopeItem.getAttribute('data-sort') ?? 'original-order';
 
     let initIsotope;
-    imagesLoaded(isotopeItem.querySelector('.isotope-container'), function() {
+    imagesLoaded(isotopeItem.querySelector('.isotope-container'), function () {
       initIsotope = new Isotope(isotopeItem.querySelector('.isotope-container'), {
         itemSelector: '.isotope-item',
         layoutMode: layout,
@@ -174,8 +174,8 @@
       });
     });
 
-    isotopeItem.querySelectorAll('.isotope-filters li').forEach(function(filters) {
-      filters.addEventListener('click', function() {
+    isotopeItem.querySelectorAll('.isotope-filters li').forEach(function (filters) {
+      filters.addEventListener('click', function () {
         isotopeItem.querySelector('.isotope-filters .filter-active').classList.remove('filter-active');
         this.classList.add('filter-active');
         initIsotope.arrange({
@@ -192,7 +192,7 @@
   /**
    * Correct scrolling position upon page load for URLs containing hash links.
    */
-  window.addEventListener('load', function(e) {
+  window.addEventListener('load', function (e) {
     if (window.location.hash) {
       if (document.querySelector(window.location.hash)) {
         setTimeout(() => {
@@ -228,5 +228,118 @@
   }
   window.addEventListener('load', navmenuScrollspy);
   document.addEventListener('scroll', navmenuScrollspy);
+
+
+  function showMessage(element, message) {
+    element.textContent = message;
+    element.style.display = "block";
+    
+    setTimeout(() => {
+        element.classList.add("fade-out");
+        setTimeout(() => {
+            element.style.display = "none";
+            element.classList.remove("fade-out");
+        }, 1000);
+    }, 3000);
+}
+
+  // contact-us form 
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector(".php-email-form");
+    const csrftoken = document.querySelector("[name=csrfmiddlewaretoken]")?.value;
+    const subscribeForm = document.querySelector(".subscribe-to-newsletter").closest("form");
+
+    function displayDjangoMessage(type, message) {
+      const messageContainer = document.createElement("div");
+      messageContainer.className = `alert alert-${type}`;
+      messageContainer.textContent = message;
+      document.body.prepend(messageContainer);
+      setTimeout(() => messageContainer.remove(), 5000);
+  }
+
+
+    if (form) {
+
+      form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+        event.stopPropagation(); // Prevent bubbling issues
+
+        const formData = {
+          name: document.getElementById("name-field").value,
+          email: document.getElementById("email-field").value,
+          subject: document.getElementById("subject-field").value,
+          message: document.getElementById("message-field").value
+        };
+
+        try {
+          const response = await fetch("api/contact-us/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRFToken": csrftoken
+            },
+            body: JSON.stringify(formData)
+          });
+
+          if (response.ok) {
+            console.log("Form submitted successfully!");
+            document.querySelector(".sent-message").style.display = "block";
+            form.reset();
+          } else {
+            console.error("Server error:", response.status);
+            document.querySelector(".error-message").innerText = "Failed to submit the form.";
+            document.querySelector(".error-message").style.display = "block";
+          }
+        } catch (error) {
+          console.error("Fetch error:", error);
+          document.querySelector(".error-message").innerText = "An error occurred. Please try again.";
+          document.querySelector(".error-message").style.display = "block";
+        }
+      });
+    }
+
+    if (subscribeForm) {
+      subscribeForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const emailInput = subscribeForm.querySelector("input[name='email']");
+        const email = emailInput.value;
+        const submitButton = subscribeForm.querySelector("button[type='submit']");
+
+        submitButton.disabled = true;
+
+        try {
+          const response = await fetch("api/subscribe-to-newsletter/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-CSRFToken": csrftoken
+            },
+            body: JSON.stringify({ email })
+          });
+          const data = await response.json();
+
+          submitButton.disabled = false;
+
+          if (response.ok) {
+            const successMessage = document.querySelector(".subscribed-message");
+            showMessage(successMessage, "Thanks for Subscribing!");
+            emailInput.value = "";
+          } else {
+            const errorMessage = document.querySelector(".error-subscribed-message");
+            showMessage(errorMessage, "Subscription failed. Please try again.");
+            
+          }
+        } catch (error) {
+          submitButton.disabled = false;
+          const errorMessage = document.querySelector(".error-subscribed-message");
+          showMessage(errorMessage, "Subscription failed. Please try again.");
+        }
+      });
+    }
+  });
+
+
+
 
 })();

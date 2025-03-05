@@ -11,14 +11,14 @@ class ContactUsForm(models.Model):
     updated_at = models.DateTimeField(_("Updated at"), auto_now=True)
 
     class Meta:
-        verbose_name = _("ContactUs")
-        verbose_name_plural = _("ContactUss")
+        verbose_name = _("ContactUsForm")
+        verbose_name_plural = _("ContactUsForm")
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("ContactUs_detail", kwargs={"pk": self.pk})
+        return reverse("ContactUsForm_detail", kwargs={"pk": self.pk})
 
 class ContactUs(models.Model):
     name = models.CharField(_("Name"), max_length=50)
@@ -30,7 +30,7 @@ class ContactUs(models.Model):
 
     class Meta:
         verbose_name = _("ContactUs")
-        verbose_name_plural = _("ContactUss")
+        verbose_name_plural = _("ContactUs")
 
     def __str__(self):
         return self.name

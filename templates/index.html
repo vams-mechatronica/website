@@ -375,6 +375,10 @@
           <form method="post">
             {% csrf_token %}
             <div class="input-group mb-3">
+              <div class="error-subscribed-message"></div>
+              <div class="subscribed-message"></div>
+            </div>
+            <div class="input-group mb-3 subscribe-to-newsletter">
               <input type="email" class="form-control" placeholder="Email address..." name="email" required>
               <button class="btn btn-primary" type="submit">Subscribe</button>
             </div>
@@ -388,7 +392,7 @@
       </div>
       <div class="col-lg-4">
         <div class="cta-image" data-aos="zoom-out" data-aos-delay="200">
-          <img src="{% static 'img/cta/cta-1.webp' %}" alt="" class="img-fluid">
+          <img src="{% static 'assets/img/cta/cta-1.webp' %}" alt="" class="img-fluid">
         </div>
       </div>
     </div>
@@ -478,8 +482,9 @@
       </div>
 
       <div class="col-lg-7">
-        <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+        <form action="#" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
           <div class="row gy-4">
+            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
 
             <div class="col-md-6">
               <label for="name-field" class="pb-2">Your Name</label>
@@ -502,7 +507,7 @@
             </div>
 
             <div class="col-md-12 text-center">
-              <div class="loading">Loading</div>
+              {% comment %} <div class="loading">Loading</div> {% endcomment %}
               <div class="error-message"></div>
               <div class="sent-message">Your message has been sent. Thank you!</div>
 
