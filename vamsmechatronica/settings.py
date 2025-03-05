@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-@75we+v_yrrolgfk50epw(o=3=szk_)=_j#2q3ujomvp8=(8+q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -73,12 +74,22 @@ WSGI_APPLICATION = 'vamsmechatronica.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+            'default': {
+                'ENGINE': 'django.db.backends.mysql',
+                'NAME': 'ashekhar$vams-web',
+                'USER': 'ashekhar',
+                'PASSWORD': '1@V@MSots1#',
+                'HOST': 'ashekhar.mysql.pythonanywhere-services.com',
+                # 'PORT': '3306',
+        }
     }
-}
 
 
 # Password validation
@@ -125,15 +136,20 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
-STATIC_ROOT = BASE_DIR / "staticfiles"
+if DEBUG:
+    STATIC_URL = "static/"
+    STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+    STATICFILES_DIRS = [BASE_DIR, "static"]
+else:
+    STATIC_URL = "static/"
+    STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # Media files (Uploaded by users)
 # https://docs.djangoproject.com/en/4.1/topics/files/
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
+
 
 # Templates
 # https://docs.djangoproject.com/en/4.1/ref/templates/api/
@@ -151,14 +167,4 @@ INSTALLED_APPS += [
     'rest_framework'
 ]
 
-if not DEBUG:
-    DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.mysql',
-                'NAME': 'ashekhar$vams-web',
-                'USER': 'ashekhar',
-                'PASSWORD': '1@V@MSots1#',
-                'HOST': 'ashekhar.mysql.pythonanywhere-services.com',
-                # 'PORT': '3306',
-        }
-    }
+    
