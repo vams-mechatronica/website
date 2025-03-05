@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from .models import Index, Team,FAQ
+from blog.models import Blog
 
 # Create your views here.
 def home(request):
@@ -18,6 +19,7 @@ def index(request):
     promonitor_feature_items = Index.objects.filter(name='promonitor-features')
     team_items_member  =  Team.objects.all()
     team_items = Index.objects.filter(name="index-team").latest('updated_at')
+    blog_items = Blog.objects.all().order_by('-updated_at')[:3]
     context = {
         "index": {
             "company_name": index_items.name,
@@ -69,6 +71,7 @@ def index(request):
             "description": team_items.description,
             "members": team_items_member
         },
+        "recent_posts":blog_items,
         # "pricing": {
         #     "title": "Pricing",
         #     "description": "Necessitatibus eius consequatur...",
@@ -86,10 +89,6 @@ def index(request):
         #     ]
         # },
         'faqs': faq_items,
-        'recent_posts': [
-            {'title': 'Eum ad dolor et...', 'date': 'December 12', 'author': 'Julia Parker', 'category': 'Politics', 'image_url': '/static/img/blog/blog-post-1.webp', 'url': '#'},
-            # Add more posts here...
-        ],
         'contact': {
             'address': 'A108 Adam Street...',
             'phone': '+1 5589 55488 55',
@@ -98,5 +97,9 @@ def index(request):
         }
     }
     return render(request, 'index.html',context)
+
+def blog_details(request, id):
+    blog = Blog.objects.get(pk=id)
+    return render(request, '')
 
 

@@ -7,8 +7,8 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>{% block title %} | VAMS Mechatronica{% endblock title %}</title>
-    <meta name="description" content="">
-    <meta name="keywords" content="">
+    <meta name="description" content="{{ request.seo_meta.description }}">
+    <meta name="keywords" content="{{ request.seo_meta.keywords }}">
 
     <!-- Favicons -->
     <link href="{% static 'assets/img/favicon.png' %}" rel="icon">

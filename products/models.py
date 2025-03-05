@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django_quill.fields import QuillField
 from django.urls import reverse
 
 class ProductORService(models.Model):

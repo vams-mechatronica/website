@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',  
 ]
 
 MIDDLEWARE = [
@@ -164,7 +165,14 @@ INSTALLED_APPS += [
     'careers',
     'promonitor',
     'help',
-    'rest_framework'
+    'middlewares',
+    'rest_framework',
+    'django_quill',
+    
 ]
 
+MIDDLEWARE += [
+    "middlewares.middleware.RequestDataMiddleware",
+    'middlewares.middleware.SEOMiddleware'
+    ] 
     

@@ -5,7 +5,7 @@
 {% block body %}
 
 <!-- Hero Section -->
-<section id="hero" class="hero section dark-background">
+<section id="hero" class="hero hero-main section dark-background">
 
 
   <div class="container">
@@ -114,7 +114,7 @@
 
       <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
         <p>{{about_right.description}}</p>
-        <a href="#" class="read-more"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+        <a href="{% url "product-title" %}" class="read-more"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
       </div>
 
     </div>
@@ -209,8 +209,27 @@
           <div class="steps-image">
             <img src="{{ pf.logo.url }}" alt="{{pf.slogan}}" class="img-fluid" loading="lazy">
           </div>
-          <h5 style="text-align: center;">{{pf.slogan}}</h5>
-          <p style="margin: 0px 10px;">{{pf.description}}</p>
+          <div class="steps-content">
+            <div class="steps-number">{{forloop.counter}}</div>
+            <h3 style="text-align: center;">{{pf.slogan}}</h3>
+            <p style="margin: 0px 10px;">{{pf.description}}</p>
+            {% comment %} <div class="steps-features">
+              <div class="feature-item">
+                <i class="bi bi-check-circle"></i>
+                <span>Market Research</span>
+              </div>
+              <div class="feature-item">
+                <i class="bi bi-check-circle"></i>
+                <span>Data Analysis</span>
+              </div>
+              <div class="feature-item">
+                <i class="bi bi-check-circle"></i>
+                <span>User Feedback</span>
+              </div>
+            </div> {% endcomment %}
+          </div>
+          {% comment %} <h5 style="text-align: center;">{{pf.slogan}}</h5>
+          <p style="margin: 0px 10px;">{{pf.description}}</p> {% endcomment %}
         </div>
       </div>
       {% endfor %}
@@ -399,7 +418,7 @@
   </div>
 </section>
 
-{% comment %} <section id="recent-blog-postst" class="recent-blog-postst section light-background">
+<section id="recent-blog-postst" class="recent-blog-postst section light-background">
   <div class="container section-title" data-aos="fade-up">
     <h2>Recent Blog Posts</h2>
     <p>Necessitatibus eius consequatur...</p>
@@ -411,7 +430,7 @@
       <div class="col-xl-4 col-md-6">
         <div class="post-item position-relative h-100" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:1 }}00">
           <div class="post-img position-relative overflow-hidden">
-            <img src="{{ post.image_url }}" class="img-fluid" alt="">
+            <img src="{{ post.image_url.url }}" class="img-fluid" alt="">
             <span class="post-date">{{ post.date }}</span>
           </div>
           <div class="post-content d-flex flex-column">
@@ -433,7 +452,7 @@
       {% endfor %}
     </div>
   </div>
-</section> {% endcomment %}
+</section>
 
 <section id="contact" class="contact section">
 

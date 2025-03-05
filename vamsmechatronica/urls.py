@@ -19,18 +19,26 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 from django.urls import path, include
+from django.contrib.sitemaps.views import sitemap
 from contact.views import ContactUsFormViewSet, SubscribedToNewsletterView
+from middlewares.sitemap import StaticViewSitemap
 
 
 router = DefaultRouter()
 router.register(r'contact-us', ContactUsFormViewSet)
 
+sitemaps = {
+    "static": StaticViewSitemap(),
+}
 
 urlpatterns = [
     path('', include('home.urls')),
+    path('', include('middlewares.urls')),
+    path('products/', include('products.urls')),
     path('api/', include(router.urls)),
     path('api/subscribe-to-newsletter/',SubscribedToNewsletterView.as_view()),
     path('admin/', admin.site.urls),
+    path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="sitemap"),
 ]
 
 # if not settings.DEBUG:
