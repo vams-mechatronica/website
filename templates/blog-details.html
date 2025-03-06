@@ -32,7 +32,7 @@
                 <img src="assets/img/blog/blog-post-3.webp" alt="Featured blog image" class="img-fluid" loading="lazy">
                 <div class="meta-overlay">
                   <div class="meta-categories">
-                    <a href="#" class="category">Web Development</a>
+                    <a href="#" class="category">{{blog.category}}</a>
                     <span class="divider">•</span>
                     <span class="reading-time"><i class="bi bi-clock"></i> 6 min read</span>
                   </div>
@@ -41,18 +41,18 @@
 
               <div class="article-content" data-aos="fade-up" data-aos-delay="100">
                 <div class="content-header">
-                  <h1 class="title">Modern Web Development: Best Practices and Future Trends for 2025</h1>
+                  <h1 class="title">{{blog.title}}</h1>
 
                   <div class="author-info">
                     <div class="author-details">
                       <img src="assets/img/person/person-f-8.webp" alt="Author" class="author-img">
                       <div class="info">
-                        <h4>Michael Chen</h4>
+                        <h4>{{blog.author}}</h4>
                         <span class="role">Senior Web Developer</span>
                       </div>
                     </div>
                     <div class="post-meta">
-                      <span class="date"><i class="bi bi-calendar3"></i> Mar 15, 2025</span>
+                      <span class="date"><i class="bi bi-calendar3"></i> {{blog.date}}</span>
                       <span class="divider">•</span>
                       <span class="comments"><i class="bi bi-chat-text"></i> 18 Comments</span>
                     </div>

@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from .models import Index, Team,FAQ
 from blog.models import Blog
+from products.models import ProductORService
 
 # Create your views here.
 def home(request):
@@ -12,7 +13,6 @@ def index(request):
     about_right_items = Index.objects.filter(name='index-about-right').latest('updated_at')
     about_bullet_items = Index.objects.filter(name='about_us_bullets')
     faq_items = FAQ.objects.all()[:5]
-    service_items = Index.objects.filter(name='services').latest('updated_at')
     index_promonitor_2 = Index.objects.filter(name='index-promonitor-2').latest('updated_at')
     index_promonitor_3 = Index.objects.filter(name='index-promonitor-3').latest('updated_at')
     promonitor_items = Index.objects.filter(name='index-promonitor').latest('updated_at')
@@ -20,6 +20,8 @@ def index(request):
     team_items_member  =  Team.objects.all()
     team_items = Index.objects.filter(name="index-team").latest('updated_at')
     blog_items = Blog.objects.all().order_by('-updated_at')[:3]
+    service = Index.objects.filter(name='services').latest('updated_at')
+    services_items = ProductORService.objects.all().order_by('-updated_at')[:4]
     context = {
         "index": {
             "company_name": index_items.name,
@@ -35,9 +37,10 @@ def index(request):
         "index_about_2":index_promonitor_2,
         "index_about_3":index_promonitor_3,
         "services": {
-            "title": service_items.name,
-            "description": service_items.description,
-        },"promonitor":{
+            "title": service.name,
+            "description": service.description,
+        },"services_items":services_items,
+        "promonitor":{
             "title": promonitor_items.name,
             "slogan": promonitor_items.slogan,
             "description": promonitor_items.description,
@@ -100,6 +103,6 @@ def index(request):
 
 def blog_details(request, id):
     blog = Blog.objects.get(pk=id)
-    return render(request, '')
+    return render(request, 'blog-details.html',context={'blog':blog})
 
 

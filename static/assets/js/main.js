@@ -248,6 +248,7 @@
     const form = document.querySelector(".php-email-form");
     const csrftoken = document.querySelector("[name=csrfmiddlewaretoken]")?.value;
     const subscribeForm = document.querySelector(".subscribe-to-newsletter").closest("form");
+    const subscribedEmailForm = document.querySelector("#subscribe-to-email-base");
 
     function displayDjangoMessage(type, message) {
       const messageContainer = document.createElement("div");
@@ -337,6 +338,63 @@
         }
       });
     }
+
+    if (subscribedEmailForm) {
+      subscribedEmailForm.addEventListener("submit", async function (event) {
+          event.preventDefault(); // Prevent page reload
+          
+          // const formData = new FormData(subscribedEmailForm);
+          const emailInput = subscribedEmailForm.querySelector("input[name='email']");
+          const email = emailInput.value;
+          const submitButton = subscribedEmailForm.querySelector("input[type='submit']");
+          // const loadingMessage = subscribedEmailForm.querySelector(".loading");
+          const errorMessage = subscribedEmailForm.querySelector(".error-message");
+          const successMessage = subscribedEmailForm.querySelector(".sent-message");
+
+          // Show loading state
+          // loadingMessage.style.display = "block";
+          errorMessage.style.display = "none";
+          successMessage.style.display = "none";
+          submitButton.disabled = true;
+
+          try {
+              const response = await fetch("api/subscribe-to-newsletter/", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrftoken
+                  },
+                  body: JSON.stringify({ email })
+              });
+
+              const data = await response.json();
+              // loadingMessage.style.display = "none";
+              submitButton.disabled = false;
+
+              if (response.ok) {
+                  successMessage.style.display = "block";
+                  emailInput.value = ""; // Clear input field
+                  setTimeout(() => {
+                      successMessage.style.display = "none";
+                  }, 3000); // Auto-hide success message after 3 seconds
+              } else {
+                  errorMessage.style.display = "block";
+                  errorMessage.textContent = data.error || "Subscription failed. Please try again.";
+                  setTimeout(() => {
+                      errorMessage.style.display = "none";
+                  }, 3000); // Auto-hide error message after 3 seconds
+              }
+          } catch (error) {
+              // loadingMessage.style.display = "none";
+              submitButton.disabled = false;
+              errorMessage.style.display = "block";
+              errorMessage.textContent = "Failed to subscribe. Please try again.";
+              setTimeout(() => {
+                  errorMessage.style.display = "none";
+              }, 3000);
+          }
+      });
+  }
   });
 
 

@@ -68,10 +68,11 @@
                     <div class="col-lg-6">
                         <h4>Join Our Newsletter</h4>
                         <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
-                        <form action="forms/newsletter.php" method="post" class="php-email-form">
+                        <form action="#" method="post" class="php-email-form" id="subscribe-to-email-base">
+                            {% csrf_token %}
                             <div class="newsletter-form"><input type="email" name="email"><input type="submit"
                                     value="Subscribe"></div>
-                            <div class="loading">Loading</div>
+                            {% comment %} <div class="loading">Loading</div> {% endcomment %}
                             <div class="error-message"></div>
                             <div class="sent-message">Your subscription request has been sent. Thank you!</div>
                         </form>
@@ -116,7 +117,7 @@
 
                 <div class="col-lg-4 col-md-12">
                     <h4>Follow Us</h4>
-                    <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
+                    <p>Stay connected with us on social media for the latest updates, insights, and exclusive content. Join our community and be part of the conversation!</p>
                     <div class="social-links d-flex">
                         <a href=""><i class="bi bi-twitter-x"></i></a>
                         <a href=""><i class="bi bi-facebook"></i></a>

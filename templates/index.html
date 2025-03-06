@@ -186,7 +186,15 @@
   <div class="container">
 
     <div class="row gy-4">
-      <!-- Service items remain unchanged -->
+      {% for sitem in services_items %}
+      <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
+        <div class="service-item position-relative">
+          <div class="icon"><i class="bi bi-activity icon"></i></div>
+          <h4><a href="" class="stretched-link">{{sitem.name}}</a></h4>
+          <p>{{sitem.description}}</p>
+        </div>
+      </div>
+      {% endfor %}
     </div>
 
   </div>
@@ -390,7 +398,7 @@
       <div class="col-lg-6">
         <div class="cta-content" data-aos="fade-up" data-aos-delay="200">
           <h2>Subscribe to our newsletter</h2>
-          <p>Proin eget tortor risus...</p>
+          <p>Stay updated with the latest news, trends, and exclusive insights. Subscribe to our newsletter and never miss important updates, expert tips, and special offers delivered straight to your inbox!</p>
           <form method="post">
             {% csrf_token %}
             <div class="input-group mb-3">
@@ -421,7 +429,7 @@
 <section id="recent-blog-postst" class="recent-blog-postst section light-background">
   <div class="container section-title" data-aos="fade-up">
     <h2>Recent Blog Posts</h2>
-    <p>Necessitatibus eius consequatur...</p>
+    <p>Stay informed with our latest insights, trends, and expert opinions. Explore our recent blog posts for valuable knowledge, industry updates, and innovative ideas to keep you ahead.</p>
   </div>
 
   <div class="container">
@@ -445,7 +453,7 @@
               </div>
             </div>
             <hr>
-            <a href="{{ post.url }}" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+            <a href="{% url "blog-detail-page" id=post.id %}" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
           </div>
         </div>
       </div>
