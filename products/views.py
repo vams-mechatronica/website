@@ -2,8 +2,8 @@ from django.shortcuts import render
 from .models import ProductORService
 
 # Create your views here.
-def products(request):
-    product_item = ProductORService.objects.latest('updated_at')
+def proMonitor(request):
+    product_item = ProductORService.objects.filter(name__icontains='ProMonitor')
     context = {
         "product":product_item
     }
