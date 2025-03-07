@@ -3,7 +3,7 @@ from .models import ProductORService
 
 # Create your views here.
 def proMonitor(request):
-    product_item = ProductORService.objects.filter(name__icontains='ProMonitor')
+    product_item = ProductORService.objects.get(name__icontains='ProMonitor')
     context = {
         "product":product_item
     }
