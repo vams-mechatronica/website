@@ -78,4 +78,33 @@
     </div>
   
   </section><!-- /Clients Section -->
+  <!-- Page Title -->
+  <div class="page-title" data-aos="fade">
+    <div class="container">
+      <nav class="breadcrumbs">
+        <ol>
+          <li><a href="{% url "home" %}">Home</a></li>
+          <li class="current">ProMonitor</li>
+        </ol>
+      </nav>
+      <h1>ProMonitor</h1>
+    </div>
+  </div>
+  <!-- End Page Title -->
+  
+  <!-- Service Details Section -->
+  <section id="service-details" class="service-details section">
+
+    <div class="container">
+
+      <div class="row gy-4">
+
+        {{product.detail_page_content.html|safe}}
+
+      </div>
+
+    </div>
+
+  </section>
+  <!-- /Service Details Section -->
 {% endblock body %}
