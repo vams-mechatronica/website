@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}Blog{% endblock title %}
 
 {% block body %}
@@ -29,7 +30,7 @@
             <article class="article">
 
               <div class="hero-img" data-aos="zoom-in">
-                <img src="assets/img/blog/blog-post-3.webp" alt="Featured blog image" class="img-fluid" loading="lazy">
+                <img src="{{blog.image_url.url}}" alt="Featured blog image" class="img-fluid" loading="lazy">
                 <div class="meta-overlay">
                   <div class="meta-categories">
                     <a href="#" class="category">{{blog.category}}</a>
@@ -45,45 +46,22 @@
 
                   <div class="author-info">
                     <div class="author-details">
-                      <img src="assets/img/person/person-f-8.webp" alt="Author" class="author-img">
+                      <img src="{% static "assets/img/person/person-f-8.webp" %}" alt="Author" class="author-img">
                       <div class="info">
                         <h4>{{blog.author}}</h4>
-                        <span class="role">Senior Web Developer</span>
+                        <span class="role">{{blog.author_role}}</span>
                       </div>
                     </div>
                     <div class="post-meta">
                       <span class="date"><i class="bi bi-calendar3"></i> {{blog.date}}</span>
                       <span class="divider">•</span>
-                      <span class="comments"><i class="bi bi-chat-text"></i> 18 Comments</span>
+                      <span class="comments"><i class="bi bi-chat-text"></i> 0 Comments</span>
                     </div>
                   </div>
                 </div>
 
                 <div class="content">
-                  <p class="lead">
-                    The landscape of web development continues to evolve at an unprecedented pace, bringing new technologies, frameworks, and methodologies that reshape how we build modern web applications.
-                  </p>
-
-                  <p>
-                    As we delve into 2025, the web development ecosystem has transformed dramatically, introducing innovative approaches to building faster, more secure, and highly engaging web experiences. This comprehensive guide explores the latest trends and best practices that are defining the future of web development.
-                  </p>
-
-                  <div class="content-image right-aligned">
-                    <img src="assets/img/blog/blog-hero-2.webp" class="img-fluid" alt="Modern web development tools" loading="lazy">
-                    <figcaption>Modern development environments emphasize collaboration and efficiency</figcaption>
-                  </div>
-
-                  <h2>The Rise of Web Components</h2>
-                  <p>
-                    Web Components have become increasingly crucial in modern web development, offering a standardized way to create reusable custom elements. Key advantages include:
-                  </p>
-                  <ul>
-                    <li>Enhanced code reusability across different frameworks</li>
-                    <li>Better encapsulation of functionality</li>
-                    <li>Improved maintenance and scalability</li>
-                    <li>Framework-agnostic component development</li>
-                  </ul>
-
+                    {{ blog.content.html|safe }}
                   <div class="highlight-box">
                     <h3>Key Trends in 2025</h3>
                     <ul class="trend-list">
@@ -102,10 +80,7 @@
                     </ul>
                   </div>
 
-                  <h2>Performance Optimization</h2>
-                  <p>
-                    Performance remains a critical factor in web development, with an increasing focus on Core Web Vitals and user experience metrics. Modern applications must be optimized for both speed and efficiency.
-                  </p>
+                  
 
                   <blockquote>
                     <p>
@@ -133,10 +108,7 @@
                     </div>
                   </div>
 
-                  <h2>Looking Forward</h2>
-                  <p>
-                    As we continue through 2025, web development practices will further evolve, embracing new technologies while maintaining a strong foundation in performance, accessibility, and user experience. Staying updated with these trends and best practices is crucial for developers looking to build modern, scalable web applications.
-                  </p>
+                
                 </div>
 
                 <div class="meta-bottom">
@@ -168,7 +140,7 @@
           </div>
         </section><!-- /Blog Details Section -->
 
-        <!-- Blog Comments Section -->
+        {% comment %} <!-- Blog Comments Section -->
         <section id="blog-comments" class="blog-comments section">
 
           <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -437,7 +409,7 @@
 
           </div>
 
-        </section><!-- /Blog Comment Form Section -->
+        </section><!-- /Blog Comment Form Section --> {% endcomment %}
 
       </div>
 
@@ -460,60 +432,26 @@
           <div class="recent-posts-widget widget-item">
 
             <h3 class="widget-title">Recent Posts</h3>
+            {% for item in recent_posts %}
 
-            <div class="post-item">
-              <img src="assets/img/blog/blog-post-square-1.webp" alt="" class="flex-shrink-0">
-              <div>
-                <h4><a href="blog-details.html">Nihil blanditiis at in nihil autem</a></h4>
-                <time datetime="2020-01-01">Jan 1, 2020</time>
+              <div class="post-item">
+                <img src="{{item.image_url.url}}" alt="post-image" class="flex-shrink-0">
+                <div>
+                  <h4><a href="{% url "blog-detail-page" item.id %}">{{item.title}}</a></h4>
+                  <time datetime="{{item.date}}">{{item.date}}</time>
+                </div>
               </div>
-            </div><!-- End recent post item-->
-
-            <div class="post-item">
-              <img src="assets/img/blog/blog-post-square-2.webp" alt="" class="flex-shrink-0">
-              <div>
-                <h4><a href="blog-details.html">Quidem autem et impedit</a></h4>
-                <time datetime="2020-01-01">Jan 1, 2020</time>
-              </div>
-            </div><!-- End recent post item-->
-
-            <div class="post-item">
-              <img src="assets/img/blog/blog-post-square-3.webp" alt="" class="flex-shrink-0">
-              <div>
-                <h4><a href="blog-details.html">Id quia et et ut maxime similique occaecati ut</a></h4>
-                <time datetime="2020-01-01">Jan 1, 2020</time>
-              </div>
-            </div><!-- End recent post item-->
-
-            <div class="post-item">
-              <img src="assets/img/blog/blog-post-square-4.webp" alt="" class="flex-shrink-0">
-              <div>
-                <h4><a href="blog-details.html">Laborum corporis quo dara net para</a></h4>
-                <time datetime="2020-01-01">Jan 1, 2020</time>
-              </div>
-            </div><!-- End recent post item-->
-
-            <div class="post-item">
-              <img src="assets/img/blog/blog-post-square-5.webp" alt="" class="flex-shrink-0">
-              <div>
-                <h4><a href="blog-details.html">Et dolores corrupti quae illo quod dolor</a></h4>
-                <time datetime="2020-01-01">Jan 1, 2020</time>
-              </div>
-            </div><!-- End recent post item-->
-
-          </div><!--/Recent Posts Widget -->
+            {% endfor %}
+          </div>
 
           <!-- Categories Widget -->
           <div class="categories-widget widget-item">
 
             <h3 class="widget-title">Categories</h3>
             <ul class="mt-3">
-              <li><a href="#">General <span>(25)</span></a></li>
-              <li><a href="#">Lifestyle <span>(12)</span></a></li>
-              <li><a href="#">Travel <span>(5)</span></a></li>
-              <li><a href="#">Design <span>(22)</span></a></li>
-              <li><a href="#">Creative <span>(8)</span></a></li>
-              <li><a href="#">Educaion <span>(14)</span></a></li>
+              {% for category in categories %}
+              <li><a href="#">{{category.name}} <span>(25)</span></a></li>
+              {% endfor %}
             </ul>
 
           </div><!--/Categories Widget -->
@@ -523,17 +461,9 @@
 
             <h3 class="widget-title">Tags</h3>
             <ul>
-              <li><a href="#">App</a></li>
-              <li><a href="#">IT</a></li>
-              <li><a href="#">Business</a></li>
-              <li><a href="#">Mac</a></li>
-              <li><a href="#">Design</a></li>
-              <li><a href="#">Office</a></li>
-              <li><a href="#">Creative</a></li>
-              <li><a href="#">Studio</a></li>
-              <li><a href="#">Smart</a></li>
-              <li><a href="#">Tips</a></li>
-              <li><a href="#">Marketing</a></li>
+              {% for tag in tags %}
+                <li><a href="#">{{tag.name}}</a></li>
+              {% endfor %}
             </ul>
 
           </div><!--/Tags Widget -->

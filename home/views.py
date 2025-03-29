@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from .models import Index, Team,FAQ
-from blog.models import Blog
+from blog.models import Blog, BlogCategories, BlogTag
 from products.models import ProductORService
 
 # Create your views here.
@@ -103,6 +103,13 @@ def index(request):
 
 def blog_details(request, id):
     blog = Blog.objects.get(pk=id)
-    return render(request, 'blog-details.html',context={'blog':blog})
+    recent_post = Blog.objects.filter(is_active=True).order_by('-updated_at')[:5]
+    category = BlogCategories.objects.all()
+    tags = BlogTag.objects.all()
+    context={'blog':blog,
+             'recent_posts':recent_post,
+             'categories':category,
+             'tags':tags}
+    return render(request, 'blog-details.html',context)
 
 
